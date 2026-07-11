@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node / frontend
+node_modules/
+dist/
+
+# Secrets & env
+.env
+.env.*
+!.env.example
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+frontend/.playwright/
+
+# OS
+.DS_Store

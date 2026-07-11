@@ -1,0 +1,65 @@
+/* pandora-components · ui.design-tokens v1.0.0
+ *
+ * The canonical "dark, warm, modern" design system for the Pandora app fleet —
+ * the single source of truth for color. Framework-agnostic CSS custom
+ * properties under a `--pb-*` namespace so any stack can consume them:
+ *   - React + Tailwind v4 (Pandora's Box): map `@theme` tokens to these vars.
+ *   - vanilla CSS / Jinja+HTMX (finance-tracker): use the vars directly, or alias
+ *     your semantic names to them (e.g. `--bg: var(--pb-surface-900)`).
+ *
+ * Bump the version here + in components.json + every consumer's manifest when
+ * the palette changes. See pandora-components/MANIFEST_SPEC.md.
+ */
+:root {
+  /* Brand — warm amber/orange (primary accent) */
+  --pb-brand-100: #fdecce;
+  --pb-brand-200: #fcddaa;
+  --pb-brand-300: #faca79;
+  --pb-brand-400: #f7b13c;
+  --pb-brand-500: #f59e0b;
+  --pb-brand-600: #d08609;
+  --pb-brand-700: #ac6f08;
+  --pb-brand-800: #865606;
+  --pb-brand-900: #6e4705;
+  --pb-text-on-brand: #000000;
+
+  /* Accent — muted teal (used sparingly) */
+  --pb-accent-500: #14b8a6;
+  --pb-accent-600: #0d9488;
+  --pb-accent-700: #0f766e;
+
+  /* Surfaces — warm grays (zinc-ish; darkest = page bg) */
+  --pb-surface-500: #65656b;
+  --pb-surface-600: #525258;
+  --pb-surface-700: #3f3f46;
+  --pb-surface-800: #2e2e31;
+  --pb-surface-850: #27272a;
+  --pb-surface-900: #1c1c1f;
+  --pb-surface-950: #0f0f11;
+
+  /* Text ramp */
+  --pb-text-primary: #e4e4e7;
+  --pb-text-secondary: #a1a1aa;
+  --pb-text-muted: #71717a;
+  --pb-text-dim: #8b8b94;
+  --pb-text-bright: #fafafa;
+
+  /* Semantic status */
+  --pb-status-running: #22c55e;
+  --pb-status-waiting: #fbbf24;
+  --pb-status-warning: #fbbf24;
+  --pb-status-fresh-idle: #f59e0b;
+  --pb-status-idle: #71717a;
+  --pb-status-unread: #38bdf8;
+  --pb-status-error: #ef4444;
+  --pb-status-starting: #f59e0b;
+  --pb-status-stopped: #52525b;
+
+  /* Typography (font stacks; each app self-hosts the Geist woff2 to match) */
+  --pb-font-sans: "Geist Sans", system-ui, -apple-system, sans-serif;
+  --pb-font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Radius / shadow conventions */
+  --pb-radius: 0.5rem;
+  --pb-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+}

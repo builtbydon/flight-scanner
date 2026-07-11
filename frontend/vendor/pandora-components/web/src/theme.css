@@ -1,0 +1,53 @@
+/* pandora-components-web · Tailwind theme bridge
+ *
+ * The shared React components use Tailwind utility classes (bg-surface-800,
+ * text-brand-400, text-status-running, …). This file maps the canonical
+ * ui.design-tokens (--pb-* from pandora-components/tokens/theme.css) into a
+ * Tailwind v4 @theme block so those utilities resolve in any consuming app.
+ *
+ * In a consumer's global CSS:
+ *   @import "tailwindcss";
+ *   @import "pandora-components-web/theme.css";
+ * and make sure Tailwind scans the package for classes (content/source globs
+ * must include node_modules/pandora-components-web/src).
+ */
+@theme {
+  --color-brand-100: #fdecce;
+  --color-brand-200: #fcddaa;
+  --color-brand-300: #faca79;
+  --color-brand-400: #f7b13c;
+  --color-brand-500: #f59e0b;
+  --color-brand-600: #d08609;
+  --color-brand-700: #ac6f08;
+  --color-brand-800: #865606;
+  --color-brand-900: #6e4705;
+  --color-text-on-brand: #000000;
+
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  --color-accent-700: #0f766e;
+
+  --color-surface-500: #65656b;
+  --color-surface-600: #525258;
+  --color-surface-700: #3f3f46;
+  --color-surface-800: #2e2e31;
+  --color-surface-850: #27272a;
+  --color-surface-900: #1c1c1f;
+  --color-surface-950: #0f0f11;
+
+  --color-text-primary: #e4e4e7;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-text-dim: #8b8b94;
+  --color-text-bright: #fafafa;
+
+  --color-status-running: #22c55e;
+  --color-status-waiting: #fbbf24;
+  --color-status-warning: #fbbf24;
+  --color-status-idle: #71717a;
+  --color-status-unread: #38bdf8;
+  --color-status-error: #ef4444;
+
+  --font-sans: "Geist Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+}

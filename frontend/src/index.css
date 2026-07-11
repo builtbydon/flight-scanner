@@ -1,0 +1,43 @@
+@import "tailwindcss";
+/* Shared house design system: maps the canonical --pb-* tokens into Tailwind
+   @theme so utilities like bg-surface-800 / text-brand-400 resolve fleet-wide. */
+@import "pandora-components-web/theme.css";
+
+/* Scan the vendored component package so its utility classes are generated. */
+@source "../vendor/pandora-components/web/src";
+
+/* Self-hosted Geist (matches the fleet). Files in /public/fonts. */
+@font-face {
+  font-family: "Geist Sans";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+  background: var(--color-surface-900, #1c1c1f);
+  color: var(--color-text-primary, #e4e4e7);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Plane marker on the globe (data-viz; not part of the token system). */
+.globe-plane {
+  font-size: 18px;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.9));
+  pointer-events: none;
+  transform-origin: center;
+}

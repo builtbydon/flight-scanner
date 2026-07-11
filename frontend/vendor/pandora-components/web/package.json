@@ -1,0 +1,39 @@
+{
+  "name": "pandora-components-web",
+  "version": "0.8.1",
+  "description": "Shared React UI components for the Pandora app fleet (consumes ui.design-tokens).",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./globe": "./src/globe.ts",
+    "./charts": "./src/charts.ts",
+    "./theme.css": "./src/theme.css"
+  },
+  "files": [
+    "src"
+  ],
+  "peerDependencies": {
+    "lucide-react": "^1.22.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-globe.gl": "^2.27.0",
+    "three": ">=0.171.0",
+    "recharts": "^2.13.0"
+  },
+  "peerDependenciesMeta": {
+    "react-globe.gl": {
+      "optional": true
+    },
+    "three": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "typescript": "^5.9.3",
+    "@types/react-dom": "^19.0.0"
+  }
+}

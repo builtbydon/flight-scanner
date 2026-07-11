@@ -1,0 +1,14 @@
+services:
+  flight-scanner:
+    build: .
+    image: flight-scanner
+    # Bound to localhost only; exposed to the tailnet over HTTPS via
+    # `tailscale serve --https=${FLIGHT_SCANNER_PORT:-8420} localhost:${FLIGHT_SCANNER_PORT:-8420}`
+    # (so the dashboard's HTTPS "Open UI" link works without mixed-content/HTTP-upgrade issues).
+    ports:
+      - "${FLIGHT_SCANNER_BIND_ADDR:-127.0.0.1}:${FLIGHT_SCANNER_PORT:-8420}:8000"
+    environment:
+      # Override by passing the var on the docker compose command line or in a
+      # local .env file (copy .env.example → .env; it is gitignored).
+      FLIGHT_SCANNER_MOCK: ${FLIGHT_SCANNER_MOCK:-0}
+    restart: unless-stopped

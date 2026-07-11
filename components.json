@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "app": "flight-scanner",
+  "consumes": [
+    { "id": "ui.design-tokens", "version": "1.0.0" },
+    { "id": "ui.page-shell", "version": "1.0.0" },
+    { "id": "ui.button", "version": "1.0.0" },
+    { "id": "ui.card", "version": "1.0.0" },
+    { "id": "ui.badge", "version": "1.0.0" },
+    { "id": "ui.spinner", "version": "1.0.0" },
+    { "id": "ui.empty-state", "version": "1.0.0" },
+    { "id": "ui.form-fields", "version": "1.0.0" },
+    { "id": "ui.toast", "version": "1.0.0" },
+    { "id": "ui.date-picker", "version": "1.0.0" },
+    { "id": "ui.segmented-control", "version": "1.0.0" },
+    { "id": "ui.autocomplete", "version": "1.0.0" },
+    { "id": "ui.geo-globe", "version": "0.2.0" }
+  ],
+  "provides": [
+    {
+      "id": "ui.search-form",
+      "kind": "ui",
+      "name": "SearchForm",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/components/SearchForm.tsx",
+      "summary": "Flight search form: trip-type toggle, origin/destination airport autocomplete, depart/return date pickers, cabin and passenger fields with client-side validation.",
+      "deps": [
+        "ui.card",
+        "ui.button",
+        "ui.date-picker",
+        "ui.segmented-control",
+        "ui.form-fields",
+        "ui.autocomplete"
+      ],
+      "tags": [
+        "flight-scanner",
+        "form",
+        "search"
+      ]
+    },
+    {
+      "id": "ui.results-list",
+      "kind": "ui",
+      "name": "ResultsList",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/components/ResultsList.tsx",
+      "summary": "Selectable, sortable (best/cheapest/fastest) list of flight results with price, duration, stops, and deal-level badges.",
+      "deps": [
+        "ui.badge",
+        "ui.segmented-control"
+      ],
+      "tags": [
+        "flight-scanner",
+        "list",
+        "results"
+      ]
+    },
+    {
+      "id": "ui.leg-timeline",
+      "kind": "ui",
+      "name": "LegTimeline",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/components/LegTimeline.tsx",
+      "summary": "Vertical itinerary timeline rendering each flight leg and layover with airline, aircraft, durations, and tight/long-connection warnings.",
+      "deps": [],
+      "tags": [
+        "flight-scanner",
+        "timeline",
+        "itinerary"
+      ]
+    },
+    {
+      "id": "ui.airline-card",
+      "kind": "ui",
+      "name": "AirlineCard",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/components/AirlineCard.tsx",
+      "summary": "Airline-experience card that lazy-fetches and displays curated comfort data (seat pitch, bag fees, Wi-Fi, power) for an airline code.",
+      "deps": [
+        "ui.card",
+        "ui.badge",
+        "ui.spinner"
+      ],
+      "tags": [
+        "flight-scanner",
+        "card",
+        "airline"
+      ]
+    },
+    {
+      "id": "ui.airport-autocomplete",
+      "kind": "ui",
+      "name": "AirportAutocomplete",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/components/AirportAutocomplete.tsx",
+      "summary": "Domain wrapper over the shared Autocomplete that queries /api/airports and reports the selected IATA code (or typed text) upward.",
+      "deps": [
+        "ui.autocomplete"
+      ],
+      "tags": [
+        "flight-scanner",
+        "autocomplete",
+        "airport"
+      ]
+    },
+    {
+      "id": "code.globe-data",
+      "kind": "code",
+      "name": "globeData",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/lib/globeData.ts",
+      "summary": "Maps FlightResult itineraries into the generic GeoGlobe {arcs,points} shape (outbound sky-blue, return amber), isolating FlightResult coupling from the shared globe.",
+      "deps": [],
+      "tags": [
+        "flight-scanner",
+        "globe",
+        "mapping"
+      ]
+    },
+    {
+      "id": "code.booking",
+      "kind": "code",
+      "name": "booking",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/lib/booking.ts",
+      "summary": "Builds pre-filled booking deep links to Google Flights and Kayak from a route/date/cabin/passenger query.",
+      "deps": [],
+      "tags": [
+        "flight-scanner",
+        "booking",
+        "deep-link"
+      ]
+    },
+    {
+      "id": "code.api-client",
+      "kind": "code",
+      "name": "api",
+      "version": "1.0.0",
+      "language": "typescript",
+      "source": "frontend/src/api.ts",
+      "summary": "Typed client for the Flight Scanner backend: airport search, flight search, and airline-card endpoints plus the shared FlightResult/Leg/SearchParams types.",
+      "deps": [],
+      "tags": [
+        "flight-scanner",
+        "api",
+        "client"
+      ]
+    }
+  ],
+  "notes": {
+    "geo-globe": "Consumed via the `pandora-components-web/globe` subpath (separate so non-globe apps don't pull three/react-globe.gl — both declared as optional peers). flight-scanner's GeoGlobe was promoted as the canonical unified globe; lib/globeData.ts maps FlightResult -> {arcs,points}. Observability global: window.__geoGlobeMarkers.",
+    "catalog": "GET http://127.0.0.1:8080/api/components?token=$(cat ~/.config/pandora/serve.token); all consumed ids verified promoted. App OWNED components (search/results/timeline/airline card/airport autocomplete + lib mappers + api client) are catalogued in provides[]; everything else (Button/Card/Badge/Spinner/EmptyState/PageShell/DatePicker/SegmentedControl/form fields/Autocomplete/Toast/GeoGlobe) is consumed from the shared library.",
+    "dedup": "No app component re-implements a shared one. AirportAutocomplete is a thin domain wrapper over shared Autocomplete (airport API -> options), not a reimplementation. The shared/ dir holds only promoted-component tests."
+  }
+}

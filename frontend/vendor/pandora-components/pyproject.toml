@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pandora-components"
+version = "0.2.0"
+description = "Shared component library for the Pandora app fleet (the catalog's source of truth)."
+requires-python = ">=3.10"
+dependencies = [
+    "cryptography>=42",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pandora_components = ["py.typed"]

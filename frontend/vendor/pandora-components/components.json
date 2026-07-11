@@ -1,0 +1,579 @@
+{
+  "schema": 1,
+  "repo": "pandora-components",
+  "role": "catalog-source",
+  "provides": [
+    {
+      "id": "py.crypto",
+      "kind": "code",
+      "name": "AES-256-GCM secrets",
+      "summary": "Encrypt/decrypt secrets at rest with AES-256-GCM, token = base64(nonce+ciphertext). App-agnostic: caller passes a 32-byte (base64 or raw) key. Use for API keys, access tokens, and other credentials stored on disk.",
+      "version": "1.0.0",
+      "language": "python",
+      "import": "pandora_components.crypto",
+      "source": "src/pandora_components/crypto.py",
+      "deps": [],
+      "powers_ui": null,
+      "tags": [
+        "security",
+        "secrets",
+        "encryption"
+      ],
+      "changelog": {
+        "1.0.0": "Initial extraction from finance-tracker app/crypto.py; key is now passed in (decoupled from app settings) so the same code backs every app."
+      }
+    },
+    {
+      "id": "ui.design-tokens",
+      "kind": "ui",
+      "name": "Design tokens (dark warm theme)",
+      "summary": "The house dark-warm design system as framework-agnostic CSS custom properties (--pb-* namespace): brand/amber accent, warm-gray surfaces, text ramp, semantic status colors, font stacks. Consumed by React+Tailwind (map @theme to it) and vanilla CSS/HTMX (use the vars). The single source of truth for color across the fleet.",
+      "version": "1.0.0",
+      "language": "css",
+      "import": "tokens/theme.css",
+      "source": "tokens/theme.css",
+      "deps": [],
+      "tags": [
+        "design-system",
+        "theme",
+        "css",
+        "ui"
+      ],
+      "changelog": {
+        "1.0.0": "Initial canonical palette, lifted from pandoras-box web/src/index.css (the warm-amber dark theme)."
+      }
+    },
+    {
+      "id": "ui.button",
+      "kind": "ui",
+      "name": "Button",
+      "version": "1.1.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Button.tsx",
+      "summary": "House button with variants (primary/secondary/ghost/danger), sizes, icon slot, and loading state.",
+      "deps": [
+        "ui.spinner"
+      ],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "primitive",
+        "form"
+      ],
+      "changelog": {
+        "1.1.0": "forwardRef so callers can focus it (e.g. a dialog's confirm action)."
+      }
+    },
+    {
+      "id": "ui.card",
+      "kind": "ui",
+      "name": "Card",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Card.tsx",
+      "summary": "Surface card with optional title row + actions; the standard content container.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "layout",
+        "container"
+      ]
+    },
+    {
+      "id": "ui.badge",
+      "kind": "ui",
+      "name": "Badge",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Badge.tsx",
+      "summary": "Small status/label pill with semantic tones (brand/accent/success/warning/error/info).",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "primitive",
+        "status"
+      ]
+    },
+    {
+      "id": "ui.spinner",
+      "kind": "ui",
+      "name": "Spinner",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Spinner.tsx",
+      "summary": "Inline spinning loader (lucide Loader2).",
+      "deps": [],
+      "tags": [
+        "react",
+        "primitive",
+        "loading"
+      ]
+    },
+    {
+      "id": "ui.modal",
+      "kind": "ui",
+      "name": "Modal",
+      "version": "1.1.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Modal.tsx",
+      "summary": "Centered modal dialog over a dimmed backdrop; Escape + backdrop close, optional title + footer.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "overlay",
+        "dialog"
+      ],
+      "changelog": {
+        "1.1.0": "Focus management (move focus in on open via initialFocusRef/container, restore to the trigger on close), aria-labelledby from the title, and a testId prop."
+      }
+    },
+    {
+      "id": "ui.confirm-dialog",
+      "kind": "ui",
+      "name": "ConfirmDialog",
+      "version": "1.1.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/ConfirmDialog.tsx",
+      "summary": "Confirmation modal with cancel/confirm actions and a danger variant for destructive ops.",
+      "deps": [
+        "ui.modal",
+        "ui.button"
+      ],
+      "tags": [
+        "react",
+        "overlay",
+        "dialog"
+      ],
+      "changelog": {
+        "1.1.0": "Autofocus the confirm button, document-level Enter\u2192confirm (once, never while loading or when focus is on a button), Escape\u2192cancel, testId passthrough."
+      }
+    },
+    {
+      "id": "ui.form-fields",
+      "kind": "ui",
+      "name": "Form fields",
+      "version": "1.1.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/fields.tsx",
+      "summary": "Form primitives: TextField, SelectField, ToggleField (switch), CollapsibleSection \u2014 labeled, themed, with descriptions + focus ring. Includes TextField, TextAreaField, SelectField, ToggleField, CollapsibleSection.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "form",
+        "input"
+      ],
+      "changelog": {
+        "1.1.0": "TextField/TextAreaField forward arbitrary input attrs (data-testid/onKeyDown/aria-label/\u2026); added TextAreaField (multiline). Requested by learning + figma."
+      }
+    },
+    {
+      "id": "ui.stat-card",
+      "kind": "ui",
+      "name": "StatCard (KPI)",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/StatCard.tsx",
+      "summary": "KPI/stat tile: label, big tabular value, optional sub + icon, semantic tone. For dashboards.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "dashboard",
+        "metric"
+      ]
+    },
+    {
+      "id": "ui.data-table",
+      "kind": "ui",
+      "name": "DataTable",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/DataTable.tsx",
+      "summary": "Generic typed data table: column defs (render/align), row click, right-aligned numeric cols, empty state.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "data",
+        "table"
+      ]
+    },
+    {
+      "id": "ui.empty-state",
+      "kind": "ui",
+      "name": "EmptyState",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/EmptyState.tsx",
+      "summary": "Centered zero/empty state with optional icon, message, and call-to-action.",
+      "deps": [],
+      "tags": [
+        "react",
+        "feedback"
+      ]
+    },
+    {
+      "id": "ui.page-shell",
+      "kind": "ui",
+      "name": "PageShell",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/PageShell.tsx",
+      "summary": "Full-height view shell: sticky header (icon + title + actions, optional back/close) over a scrollable body. The pattern behind Notes/Components/settings views.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "layout",
+        "shell"
+      ]
+    },
+    {
+      "id": "ui.toast",
+      "kind": "ui",
+      "name": "Toast",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Toast.tsx",
+      "summary": "Toast notifications (info/success/error), stacked bottom-right with auto-dismiss. ToastProvider + useToast hook.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "feedback",
+        "notification"
+      ]
+    },
+    {
+      "id": "ui.use-wide-viewport",
+      "kind": "code",
+      "name": "useIsWideViewport",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/hooks/useIsWideViewport.ts",
+      "summary": "React hook tracking the Tailwind md breakpoint (>=768px), SSR-safe. For responsive layout switches.",
+      "deps": [],
+      "tags": [
+        "react",
+        "hook",
+        "responsive"
+      ]
+    },
+    {
+      "id": "ui.tooltip",
+      "kind": "ui",
+      "name": "Tooltip",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Tooltip.tsx",
+      "summary": "Hover/focus tooltip portaled to document.body and positioned fixed so it escapes overflow-clipping ancestors, with viewport clamping; dismisses on scroll/resize.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "overlay",
+        "tooltip"
+      ]
+    },
+    {
+      "id": "ui.overflow-menu",
+      "kind": "ui",
+      "name": "OverflowMenu",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/OverflowMenu.tsx",
+      "summary": "Generic three-dot overflow menu rendering a list of action items, with dismiss-on-Escape and outside-click handling and an optional data-tour anchor on the trigger.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "menu",
+        "dropdown"
+      ]
+    },
+    {
+      "id": "ui.content-split",
+      "kind": "ui",
+      "name": "ContentSplit",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/ContentSplit.tsx",
+      "summary": "Two-pane horizontal split with a drag-to-resize handle (double-click to collapse) and best-effort width persistence to localStorage; publishes the live width as a CSS var.",
+      "deps": [],
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "tags": [
+        "react",
+        "layout",
+        "split"
+      ]
+    },
+    {
+      "id": "ui.date-picker",
+      "kind": "ui",
+      "name": "DatePicker",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/DatePicker.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "deps": [],
+      "tags": [
+        "react",
+        "form",
+        "date",
+        "calendar"
+      ],
+      "summary": "Token-styled date field: typeable input + portal popup month calendar (floats above WebGL/overflow). ISO YYYY-MM-DD value, optional min. Promoted from flight-scanner.",
+      "changelog": {
+        "1.0.0": "Promoted from flight-scanner (the shared form-fields set had no date input)."
+      }
+    },
+    {
+      "id": "ui.segmented-control",
+      "kind": "ui",
+      "name": "SegmentedControl",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/SegmentedControl.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "deps": [],
+      "tags": [
+        "react",
+        "input",
+        "toggle",
+        "tabs"
+      ],
+      "summary": "Pill segmented toggle for one-of-N (trip type, sort, view mode, tabs). Generic + token-only. Promoted from flight-scanner.",
+      "changelog": {
+        "1.0.0": "Promoted from flight-scanner."
+      }
+    },
+    {
+      "id": "ui.autocomplete",
+      "kind": "ui",
+      "name": "Autocomplete",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Autocomplete.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "deps": [],
+      "tags": [
+        "react",
+        "form",
+        "combobox",
+        "async"
+      ],
+      "summary": "Debounced async combobox; caller supplies fetchOptions(q)=>Promise<Option[]>. Generic + token-only. Promoted from flight-scanner.",
+      "changelog": {
+        "1.0.0": "Promoted from flight-scanner (its AirportAutocomplete is now a thin wrapper)."
+      }
+    },
+    {
+      "id": "ui.tabs",
+      "kind": "ui",
+      "name": "Tabs",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/components/Tabs.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "deps": [],
+      "tags": [
+        "react",
+        "nav",
+        "tabs"
+      ],
+      "summary": "Scrollable underline tab BAR for section nav (overflows gracefully on mobile). Distinct from ui.segmented-control (fixed inline pills for 2\u20135 options). Promoted from figma-localization.",
+      "changelog": {
+        "1.0.0": "Promoted from figma-localization."
+      }
+    },
+    {
+      "id": "ui.geo-globe",
+      "kind": "ui",
+      "name": "GeoGlobe",
+      "version": "0.2.0",
+      "language": "typescript",
+      "import": "pandora-components-web/globe",
+      "source": "web/src/components/GeoGlobe.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "peer_deps": [
+        "react-globe.gl",
+        "three"
+      ],
+      "deps": [],
+      "tags": [
+        "react",
+        "map",
+        "globe",
+        "3d",
+        "viz"
+      ],
+      "subpath": true,
+      "summary": "One data-driven 3D globe: weighted points (activity maps) AND great-circle arcs with an optional craft marker animated along any arc (route views). Optional hover-tooltip HTML, configurable atmosphere/background. Heavy deps (react-globe.gl+three) are optional peers, exported only from the /globe subpath. Merged from flight-scanner + finance-tracker.",
+      "changelog": {
+        "0.1.0": "Initial points-only candidate (finance-tracker).",
+        "0.2.0": "Unified: + arcs + animated marker (flight-scanner) + hover tooltips + atmosphere/background props; moved to /globe subpath with optional peer deps."
+      }
+    },
+    {
+      "id": "ui.time-series-chart",
+      "kind": "ui",
+      "name": "TimeSeriesChart",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web/charts",
+      "source": "web/src/components/TimeSeriesChart.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "peer_deps": [
+        "recharts"
+      ],
+      "deps": [],
+      "subpath": true,
+      "tags": [
+        "react",
+        "chart",
+        "viz",
+        "recharts"
+      ],
+      "summary": "Generic multi-line time-series chart (Recharts) on the house dark theme; pass data + series defs + xKey, optional value/x formatters. Heavy dep recharts is an optional peer, exported from the /charts subpath. Promoted from stock-trading.",
+      "changelog": {
+        "1.0.0": "Promoted from stock-trading (equity/strategy/backtest curves)."
+      }
+    },
+    {
+      "id": "ui.bar-chart-card",
+      "kind": "ui",
+      "name": "BarChartCard",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web/charts",
+      "source": "web/src/components/BarChartCard.tsx",
+      "powered_by": [
+        "ui.design-tokens",
+        "ui.card"
+      ],
+      "peer_deps": [
+        "recharts"
+      ],
+      "deps": [],
+      "subpath": true,
+      "tags": [
+        "react",
+        "chart",
+        "viz",
+        "recharts"
+      ],
+      "summary": "Generic token-driven Recharts bar chart inside a house Card; {label,value}[] data, vertical or horizontal, empty state. Exported from the /charts subpath (recharts optional peer). Promoted from consulting.",
+      "changelog": {
+        "1.0.0": "Promoted from consulting (companies-by-industry, lead-score distribution)."
+      }
+    },
+    {
+      "id": "code.use-api",
+      "kind": "code",
+      "name": "useApi",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web",
+      "source": "web/src/hooks/useApi.ts",
+      "deps": [],
+      "tags": [
+        "react",
+        "hook",
+        "fetch",
+        "data"
+      ],
+      "summary": "Data-fetching hook with loading/error/reload state + a default same-origin JSON GET fetcher (FastAPI error extraction). Promoted from finance/stock/consulting (identical copies).",
+      "changelog": {
+        "1.0.0": "Promoted \u2014 was byte-identical in 3 apps."
+      }
+    },
+    {
+      "id": "ui.donut-chart",
+      "kind": "ui",
+      "name": "Donut",
+      "version": "1.0.0",
+      "language": "typescript",
+      "import": "pandora-components-web/charts",
+      "source": "web/src/components/Donut.tsx",
+      "powered_by": [
+        "ui.design-tokens"
+      ],
+      "peer_deps": [
+        "recharts"
+      ],
+      "deps": [],
+      "subpath": true,
+      "tags": [
+        "react",
+        "chart",
+        "viz",
+        "recharts",
+        "pie"
+      ],
+      "summary": "Generic donut/pie chart on the house dark theme; {label,value}[] + optional value formatter + legend. Exported from /charts (recharts optional peer). Completes the chart set. Promoted from finance-tracker.",
+      "changelog": {
+        "1.0.0": "Promoted from finance-tracker (rounds out line/bar/donut)."
+      }
+    }
+  ]
+}
